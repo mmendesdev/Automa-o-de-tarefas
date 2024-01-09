@@ -1,0 +1,1 @@
+pyautogui.press("passo 1")
