@@ -1,68 +1,67 @@
 import pyautogui
 import time
-
+import pandas
 # pyautogui.write -> escrever um texto
 # pyautogui.press -> apertar 1 tecla
 # pyautogui.click -> clicar em algum lugar da tela
 # pyautogui.hotkey -> combinação de teclas
-pyautogui.PAUSE = 0.3
+pyautogui.PAUSE = 0.5
 
 # abrir o navegador (chrome)
 pyautogui.press("win")
+
 pyautogui.write("chrome")
+
 pyautogui.press("enter")
-
-# entrar no link 
+time.sleep(5)
+# entrar no no sistema da empresa 
 pyautogui.write("https://dlp.hashtagtreinamentos.com/python/intensivao/login")
-pyautogui.press("enter")pythonimpressionador@gmail.com  sua senha
-time.sleep(3)
+pyautogui.press("enter")
+time.sleep(5)
 
-
-# Passo 2: Fazer login
+# Passo 2: Fazer login no sistema
 # selecionar o campo de email
 pyautogui.click(x=436, y=412)
 # escrever o seu email
-pyautogui.write("pythonimpressionador@gmail.com")
-pyautogui.press("tab") # passando pro próximo campo
-pyautogui.write("sua senha")
-pyautogui.click(x=955, y=638) # clique no botao de login
-time.sleep(3)
+pyautogui.write("matheusmendesbmf@outlook.com") #emailfake
+#passar para selecionar o campo da senha 
+pyautogui.click(x=429, y=504)
+#escrever a senha:
+pyautogui.write("matheus01") #senhafake
+#logar
+pyautogui.click(x=675, y=570)
+pyautogui.press("enter")
 
-# Passo 3: Importar a base de produtos pra cadastrar
-tabela = pd.read_csv("produtos.csv")
-
+#Importar a base de dados
+#instalar: pip install pandas numpy openpyxl
+tabela = pandas.read_csv("produtos.csv")
 print(tabela)
 
-# Passo 4: Cadastrar um produto
+
 for linha in tabela.index:
-    # clicar no campo de código
-    pyautogui.click(x=653, y=294)
-    # pegar da tabela o valor do campo que a gente quer preencher
+    #Cadastrar produto, até acabar a base de dados 
+    pyautogui.click(x=403, y=292)
+    #codigo
     codigo = tabela.loc[linha, "codigo"]
-    # preencher o campo
-    pyautogui.write(str(codigo))
-    # passar para o proximo campo
+    pyautogui.write(codigo)
     pyautogui.press("tab")
-    # preencher o campo
-    pyautogui.write(str(tabela.loc[linha, "marca"]))
+    #marca do produto
+    pyautogui.write(tabela.loc[linha, "marca"])
     pyautogui.press("tab")
-    pyautogui.write(str(tabela.loc[linha, "tipo"]))
+    #tipo de produto
+    pyautogui.write(tabela.loc[linha, "produto"])
     pyautogui.press("tab")
+    #categoria
     pyautogui.write(str(tabela.loc[linha, "categoria"]))
     pyautogui.press("tab")
-    pyautogui.write(str(tabela.loc[linha, "preco_unitario"]))
+    #preco unitario
+    pyautogui.write(str(tabela.loc[linha, "preco"]))
     pyautogui.press("tab")
-    pyautogui.write(str(tabela.loc[linha, "custo"]))
+    #custo do produtomatheusmendesbmf@outlook.com
+        #enviar produto
     pyautogui.press("tab")
-    obs = tabela.loc[linha, "obs"]
-    if not pd.isna(obs):
-        pyautogui.write(str(tabela.loc[linha, "obs"]))
-    pyautogui.press("tab")
-    pyautogui.press("enter") # cadastra o produto (botao enviar)
-    # dar scroll de tudo pra cima
+    pyautogui.press("enter")
+    #subir a pagina
     pyautogui.scroll(5000)
-    # Passo 5: Repetir o processo de cadastro até o fim
-
-
-
+    
 
